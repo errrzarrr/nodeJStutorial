@@ -110,3 +110,10 @@ fs.open(FILE_NAME, FLAGS['r+'], (err, fd) => {
     });
 });
 
+//
+console.log("\nDeleting a file");
+fs.unlink(FILE_NAME, (err) => {
+    if(err)
+        return console.error(err);
+    console.log("File deleted successfully!");
+});
