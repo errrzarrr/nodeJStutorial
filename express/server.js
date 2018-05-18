@@ -2,6 +2,7 @@ const express = require("express");
 const PORT = 3333;
 const FILE_ATTACHED = './img/Jörmungandr_GoW2018.jpg';
 var app = express();
+app.use( express.static('public') );
 
 app.get('/', (request, response) => {
 
@@ -28,10 +29,30 @@ app.get('/', (request, response) => {
 	response.append('Warning', '199 Miscellaneous warning');
 	response.append('X-Powered-By', 'My RESTful API');
 	response.cookie('myCart', {itemsID: [1,2,3] });
-	//response.attachment( FILE_ATTACHED );
-	//response.download( FILE_ATTACHED );
+	response.attachment( FILE_ATTACHED );
+	response.download( FILE_ATTACHED );
 	response.send('Hello World');
+});
 
+
+app.post('/', (req, resp) => {
+	console.log('Got post request');
+	resp.send('hello POST');
+});
+
+app.delete('/delUser', (req, resp) => {
+	console.log('got a DELETE request for /delUser');
+	resp.send('Hello DELETE');
+});
+
+app.get('/listUser', (req, resp) => {
+	console.log('got a GET request for /listUser');
+	resp.send('Listing users');
+});
+
+app.get('/ab*cd', (req, resp)=>{
+	console.log("Got a GET request for /ab*cd");
+	resp.send("Got a GET request for /ab*cd");
 });
 
 var server = app.listen(PORT, () => {
@@ -40,7 +61,7 @@ var server = app.listen(PORT, () => {
 	console.log('Example app listening at http://%s:%s', host, port);
 });
 
-function _getCookie(cname) {
+function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
@@ -53,5 +74,5 @@ function _getCookie(cname) {
             return c.substring(name.length, c.length);
         }
     }
-    return "";
+	return "";
 }
