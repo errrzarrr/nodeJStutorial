@@ -14,17 +14,24 @@ app.get('/listUsers', (req, resp) => {
 });
 
 app.post('/addUser', (req, resp) => {
-  
-    fs.readFile(`${__dirname}/${FILE_NAME}`, 'utf8', (err, data) => {
-        data = JSON.parse( data );
-
+    var existingData={};
+    
+    fs.readFile(`${__dirname}/${FILE_NAME}`, 'utf8', (err, dataFromFile) => {
+        
+        existingData = JSON.parse( dataFromFile );
+        
         for(propertyName in req.body) 
-            data[ propertyName ] = req.body[ propertyName ];
-            
-        console.log(data);
-      
-        resp.end( JSON.stringify(data) );
+            existingData[ propertyName ] = req.body[ propertyName ];
+        
+        console.log(existingData);
+        
+        var writerStream = fs.createWriteStream(FILE_NAME);
+        writerStream.write(JSON.stringify(existingData), {flags:'w',encoding:'utf8', fd:null, mode:0o666, autoclose:true, start:0} );
+        writerStream.end(); 
+
+        resp.end( JSON.stringify(existingData) );
     });
+    
 
 });
 
@@ -36,6 +43,20 @@ app.get('/:id', (req, resp) => {
         resp.end( JSON.stringify(user) );
     });
 });
+
+app.delete('/deleteUser/:id', (req, resp) => {
+    fs.readFile(`${__dirname}/${FILE_NAME}`, 'utf8', (err, dataFromFile) => {
+        existingData = JSON.parse( dataFromFile );
+        delete existingData[`user${req.params.id}`];
+        console.log(existingData);
+        var writerStream = fs.createWriteStream(FILE_NAME);
+        writerStream.write(JSON.stringify(existingData), {flags:'w',encoding:'utf8', fd:null, mode:0o666, autoclose:true, start:0} );
+        writerStream.end(); 
+        resp.end( JSON.stringify(existingData) );
+        
+    });
+});
+
 
 var server = app.listen(PORT, () => {
     var host = server.address().address;    
