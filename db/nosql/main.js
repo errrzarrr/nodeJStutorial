@@ -7,7 +7,7 @@ MongoClient.connect(url, (err, db) => {
     console.log('database created');
     db.close();
 });
-
+/*
 MongoClient.connect(url, (err, db) => {
     if(err) 
         console.log(err);
@@ -19,7 +19,7 @@ MongoClient.connect(url, (err, db) => {
         db.close();
     });    
 });
-var 
+
 MongoClient.connect(url, function(err, db) {
     if(err) 
     console.log(err);
@@ -55,5 +55,4 @@ MongoClient.connect(url, function(err, db) {
     });
 });
 
-
-
+*/
