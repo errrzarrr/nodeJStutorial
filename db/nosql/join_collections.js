@@ -17,7 +17,7 @@ MongoClient.connect(url, (err, db) => {
 	if(err) 
 		console.log(err);
     var dbo = db.db('mydb');
-    dbo.collection(COLLECTION).aggregate(lookupCriteria).toArray( (err, res)=>{
+    dbo.collection(MAIN_COLLECTION).aggregate(lookupCriteria).toArray( (err, res)=>{
         if(err)
             throw err;
         console.log( JSON.stringify(res) );
