@@ -5,9 +5,9 @@
 let MongoClient = require('mongodb').MongoClient; 
 const url = 'mongodb://localhost:27017/';
 const MAIN_COLLECTION = 'orders';
-lookupCriteria =[
-    { $lookup: {
-        from: 'products'
+lookupCriteria = [
+	{ $lookup: {
+		from: 'products'
         ,localField: 'id'
 		,foreignField: 'product_id'
 		,as: 'productsInOrder'

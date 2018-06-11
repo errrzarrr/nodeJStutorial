@@ -1,11 +1,11 @@
 let MongoClient = require('mongodb').MongoClient; 
-const url = 'mongodb://localhost:27017/';
+const url = 'mongodb://localhost:27017/mydb';
 const COLLECTION = 'products';
 var products = [
-	{ id: 1, name: 'Apple' }
-	,{ id: 2, name: 'Pear' }
-	,{ id: 3, name: 'Cinnamon' }
-]
+	{  name: 'Apple' }
+	,{ name: 'Pear' }
+	,{  name: 'Cinnamon' }
+];
 
 MongoClient.connect(url, (err, db) => {
 	if(err) 
