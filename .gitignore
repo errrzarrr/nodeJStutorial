@@ -1,0 +1,11 @@
+# directories
+node_modules
+
+# specific files
+package-lock.json
+# .gitignore
+
+# file extensions
+# *.gz
+# *.txt
+*.swp
